@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
 import time
 
+# small change to test
+
 m1 = 1.0
 m2 = 1.0
 m3 = 1.0
