@@ -3,12 +3,15 @@ import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
 import time
 
-# small change to test
+N = 4  # Number of bodies
+#m1, m2, m3, m4 = 1.0, 1.0, 1.0, 1.0  # Masses of the bodies
+masses_array = np.full(N, 1)  # Masses of the bodies in an array
 
-m1 = 1.0
-m2 = 1.0
-m3 = 1.0
-m4 = 1.0
+#print(masses_array)
+
+def random_3D_vector():
+    """Generate a random 3D vector."""
+    return np.random.rand(3)
 
 # Position
 initial_position_1 =  [1.0,  0.0,  1.0]
@@ -27,11 +30,16 @@ initial_conditions = np.array([
     initial_velocity_1, initial_velocity_2, initial_velocity_3, initial_velocity_4
 ]).ravel()
 
+
+initial_conditions = np.array([
+    random_3D_vector(), random_3D_vector(), random_3D_vector(), random_3D_vector(),
+    random_3D_vector(), random_3D_vector(), random_3D_vector(), random_3D_vector()
+]).ravel()
 #print(initial_conditions)
 
-def system_odes(t, S_flat, m1, m2, m3, m4):
+def system_odes(t, S_flat, *masses):
 
-    S = S_flat.reshape(2*4, 3)  # Reshape S to a 8x3 array
+    S = S_flat.reshape(2*N, 3)  # Reshape S to a 8x3 array
     p1,p2,p3,p4 = S[0], S[1], S[2], S[3] # three positions
     dp1_dt, dp2_dt, dp3_dt, d4_dt = S[4], S[5], S[6] , S[7]# three change in positions over time = VELOCITIES
     f1, f2, f3,f4 = dp1_dt, dp2_dt, dp3_dt, d4_dt
@@ -39,7 +47,7 @@ def system_odes(t, S_flat, m1, m2, m3, m4):
     functions = [f1, f2, f3, f4]
 
     positions = np.array([p1, p2, p3, p4])  
-    masses = np.array([m1, m2, m3,m4])
+    
     df_dts = np.array([])
     
     for index_i, pos in enumerate(positions): #
@@ -62,7 +70,7 @@ solution = solve_ivp(
     t_span=(time_s, time_e),
     y0=initial_conditions, 
     t_eval=t_points,
-    args=(m1, m2, m3, m4)
+    args=tuple(masses_array)
 )
 
 
