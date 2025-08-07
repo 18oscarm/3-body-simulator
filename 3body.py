@@ -2,22 +2,31 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
 import time
+from random import random
 
 # ------------------------------------------------------------------- #
+
+
+# class System:
+#     def __init__(self, x: np.array):
+#         pass
 
 m1 = 1.0
 m2 = 1.0
 m3 = 1.0
+m4 = 1.0
 
 # Position
-inital_position_1 =  [-0.5,  0.0,  0.0]
-inital_position_2 =  [0.5,  0.0,  0.0]
-inital_position_3 =  [0.0,   0.001, 1.0]
+inital_position_1 =  [random(),  random(),  random()]
+inital_position_2 =  [random(),  random(),  random()]
+inital_position_3 =  [random(),  random(),  random()]
+inital_position_4 =  [random(),  random(),  random()]
 
 # Velocity
-inital_velocity_1 =  [0.0, 0.347111, 0]
-inital_velocity_2 =  [0.0, -0.347111, 0.0]
-inital_velocity_3 =  [0.0, 0.0, -0.1]
+inital_velocity_1 =  [2*random() -1,  2*random() -1,  2*random() -1]
+inital_velocity_2 =  [2*random() -1,  2*random() -1,  2*random() -1]
+inital_velocity_3 =  [2*random() -1,  2*random() -1,  2*random() -1]
+inital_velocity_4 =  [2*random() -1,  2*random() -1,  2*random() -1]
 
 initial_conditions = np.array([
     inital_position_1, inital_position_2, inital_position_3,
